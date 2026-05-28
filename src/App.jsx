@@ -118,19 +118,19 @@ function LocationCard() {
         </p>
       </div>
 
-      {/* Visual icon-only copy feedback */}
+      {/* Visual icon-only copy feedback (Merged) */}
       <div
-        className="flex items-center justify-center h-14 w-14 rounded-full flex-shrink-0 transition-colors duration-200"
+        className="flex items-center justify-center h-10 w-10 rounded-full flex-shrink-0 transition-colors duration-200"
         style={{
-          background: copied ? C.greenContainer : C.surfaceContainerHigh,
-          color: copied ? C.onGreenContainer : C.onSurface,
+          background: copied ? C.greenContainer : 'transparent',
+          color: copied ? C.onGreenContainer : C.onSurfaceVariant,
         }}
         aria-hidden="true"
       >
         {copied ? (
-          <Check className="h-6 w-6" strokeWidth={2.5} />
+          <Check className="h-5 w-5" strokeWidth={2.5} />
         ) : (
-          <Copy className="h-6 w-6" strokeWidth={2} />
+          <Copy className="h-5 w-5" strokeWidth={2} />
         )}
       </div>
     </button>

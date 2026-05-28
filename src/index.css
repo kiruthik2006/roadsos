@@ -72,6 +72,8 @@
   animation: md-morph-color 6s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  filter: blur(20px); /* Blends the shapes together */
+  mix-blend-mode: screen; /* Enhances color merging on dark bg */
 }
 
 .radar-ring:nth-child(2) {

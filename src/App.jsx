@@ -33,7 +33,7 @@ const C = {
 
 function AppLogo() {
   return (
-    <svg viewBox="0 0 32 32" className="h-8 w-8" fill="none">
+    <svg viewBox="0 0 32 32" className="h-10 w-10" fill="none">
       {/* Shield backdrop */}
       <path
         d="M16 2 L28 6 V14 C28 22 22 28 16 30 C10 28 4 22 4 14 V6 Z"
@@ -55,17 +55,25 @@ function AppLogo() {
 function StatusHeader() {
   return (
     <div
-      className="flex items-center justify-between z-10"
+      className="flex flex-col items-center justify-center gap-3 z-10 w-full"
       style={{ animation: 'slide-up-md 0.4s ease-out both' }}
     >
-      <AppLogo />
+      <div className="flex items-center gap-3">
+        <AppLogo />
+        <h1 className="text-[32px] font-black tracking-wide" style={{ color: C.onSurface }}>
+          Road<span style={{ color: C.primary }}>SoS</span>
+        </h1>
+      </div>
       
-      {/* Visual offline indicator */}
+      {/* Visual offline indicator badge */}
       <div
-        className="flex items-center justify-center h-10 w-10 rounded-full md-elevation-1"
+        className="flex items-center justify-center gap-2 px-5 py-1.5 rounded-full md-elevation-1"
         style={{ background: C.surfaceContainerHigh }}
       >
-        <WifiOff className="h-5 w-5" style={{ color: C.error }} strokeWidth={2} />
+        <WifiOff className="h-4 w-4" style={{ color: C.error }} strokeWidth={2} />
+        <span className="text-[12px] font-bold tracking-[0.2em] uppercase" style={{ color: C.error }}>
+          Offline Mode
+        </span>
       </div>
     </div>
   );

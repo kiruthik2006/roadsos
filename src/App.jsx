@@ -225,7 +225,7 @@ export default function App() {
       <div 
         className="pointer-events-none absolute inset-0 z-0" 
         style={{
-          background: 'radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.4) 100%)'
+          background: 'radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.9) 120%)'
         }}
       />
       

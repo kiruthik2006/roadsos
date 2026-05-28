@@ -12,11 +12,11 @@
   }
 
   body {
-    background: #18181b;
+    background: #1c1917;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #e4e4e7;
+    color: #e7e0d8;
   }
 
   #root {

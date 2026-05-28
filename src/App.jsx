@@ -13,22 +13,22 @@ import {
 
 /* ━━━ palette tokens (used as inline values for cleanliness) ━━━━━━ */
 const C = {
-  bg:        '#18181b',
-  card:      '#232329',
-  cardHover: '#2a2a31',
-  text:      '#e4e4e7',
-  textSec:   '#a1a1aa',
-  textMuted: '#71717a',
-  border:    '#2e2e35',
-  red:       '#e63946',
-  redLight:  '#e639460d',
-  redRing:   '#e6394625',
-  blue:      '#3b82f6',
-  blueLight: '#3b82f60d',
-  blueBorder:'#3b82f620',
-  green:     '#10b981',
-  greenLight:'#10b9810d',
-  greenBorder:'#10b98120',
+  bg:        '#1c1917',
+  card:      '#262220',
+  cardHover: '#302b28',
+  text:      '#e7e0d8',
+  textSec:   '#a8a090',
+  textMuted: '#78716c',
+  border:    '#352f2a',
+  red:       '#dc5044',
+  redLight:  '#dc50440f',
+  redRing:   '#dc504425',
+  blue:      '#5b9bd5',
+  blueLight: '#5b9bd50d',
+  blueBorder:'#5b9bd520',
+  green:     '#5dac84',
+  greenLight:'#5dac840d',
+  greenBorder:'#5dac8420',
 };
 
 /* ━━━━━━━━━━━━━━━━━━━━ Status Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

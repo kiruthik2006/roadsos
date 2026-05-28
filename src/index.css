@@ -2,18 +2,6 @@
 
 @theme {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --color-surface: #111111;
-  --color-surface-raised: #161616;
-  --color-surface-elevated: #1c1c1c;
-  --color-border-subtle: #222222;
-  --color-border-muted: #2a2a2a;
-  --color-text-primary: #e8e8e8;
-  --color-text-secondary: #888888;
-  --color-text-tertiary: #555555;
-  --color-danger: #c0392b;
-  --color-danger-muted: #922b21;
-  --color-accent-blue: #2c5282;
-  --color-accent-green: #276749;
 }
 
 @layer base {
@@ -24,11 +12,11 @@
   }
 
   body {
-    background: #0a0a0a;
+    background: #f0f0f5;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: var(--color-text-primary);
+    color: #1a1a2e;
   }
 
   #root {
@@ -39,4 +27,37 @@
   button {
     font-family: inherit;
   }
+}
+
+/* ── Purposeful animations ── */
+
+/* SOS: slow, calm breathing ring — draws the eye without urgency fatigue */
+@keyframes sos-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.25; }
+  50%      { transform: scale(1.08); opacity: 0.10; }
+}
+
+/* Gentle fade-up for cards on mount */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide-in from bottom for the grid */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtle chevron drift for swipe hint */
+@keyframes nudge-right {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(4px); }
+}
+
+/* Copy checkmark pop */
+@keyframes pop-in {
+  0%   { transform: scale(0.5); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
 }

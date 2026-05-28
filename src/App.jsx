@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import {
   WifiOff,
   MapPin,
@@ -8,6 +9,9 @@ import {
   Hospital,
   ShieldAlert,
   CarFront,
+  ArrowLeft,
+  Clock,
+  XCircle
 } from 'lucide-react';
 
 /* ━━━ MD3 Dark Theme Tokens ━━━━━━ */
@@ -36,12 +40,10 @@ const C = {
 function AppLogo() {
   return (
     <svg viewBox="0 0 32 32" className="h-10 w-10" fill="none">
-      {/* Shield backdrop */}
       <path
         d="M16 2 L28 6 V14 C28 22 22 28 16 30 C10 28 4 22 4 14 V6 Z"
         fill={C.primaryContainer}
       />
-      {/* Road / Path inside shield */}
       <path
         d="M12 30 L16 12 L20 30"
         stroke={C.onPrimaryContainer}
@@ -100,7 +102,6 @@ function LocationCard() {
         animation: 'slide-up-md 0.4s ease-out 0.1s both',
       }}
     >
-      {/* Large visual pin */}
       <div
         className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full"
         style={{ background: C.surfaceContainerHigh }}
@@ -108,7 +109,6 @@ function LocationCard() {
         <MapPin className="h-7 w-7" style={{ color: C.primary }} strokeWidth={1.8} />
       </div>
 
-      {/* Coordinates only - highly visual */}
       <div className="flex-1 min-w-0">
         <p className="text-[20px] font-bold tracking-wide" style={{ color: C.onSurface }}>
           11.18, 77.26
@@ -118,7 +118,6 @@ function LocationCard() {
         </p>
       </div>
 
-      {/* Visual icon-only copy feedback (Merged) */}
       <div
         className="flex items-center justify-center h-10 w-10 rounded-full flex-shrink-0 transition-colors duration-200"
         style={{
@@ -142,12 +141,10 @@ function LocationCard() {
 function SosButton() {
   return (
     <div className="flex-1 flex items-center justify-center relative">
-      {/* Background radar animation */}
       <div className="radar-ring" />
       <div className="radar-ring" />
       <div className="radar-ring" />
 
-      {/* Massive visual SOS button */}
       <button
         className="relative h-64 w-64 rounded-full cursor-pointer md-ripple
           flex flex-col items-center justify-center z-10
@@ -172,9 +169,11 @@ function SosButton() {
 
 /* ━━━━━━━━━━━━━━━━━━━━ Action Cards ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-function ActionButton({ icon, label, bg, color, delay }) {
+function ActionButton({ icon, label, bg, color, delay, to }) {
+  const navigate = useNavigate();
   return (
     <button
+      onClick={() => navigate(to)}
       className="flex flex-col items-center justify-center gap-3 rounded-[24px] p-4 cursor-pointer
         md-ripple md-elevation-1 border-none outline-none h-28"
       style={{
@@ -199,6 +198,7 @@ function BottomGrid() {
         bg={C.greenContainer}
         color={C.onGreenContainer}
         delay="0.2s"
+        to="/medic"
       />
       <ActionButton
         icon={<ShieldAlert className="h-8 w-8" strokeWidth={2} />}
@@ -206,6 +206,7 @@ function BottomGrid() {
         bg={C.blueContainer}
         color={C.onBlueContainer}
         delay="0.3s"
+        to="/police"
       />
       <ActionButton
         icon={<CarFront className="h-8 w-8" strokeWidth={2} />}
@@ -213,17 +214,40 @@ function BottomGrid() {
         bg={C.yellowContainer}
         color={C.onYellowContainer}
         delay="0.4s"
+        to="/tow"
       />
     </div>
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━ Main App ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━━━━━━━━━━━━━━━━━━━━ Pages ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-export default function App() {
+function Home() {
   return (
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden" style={{ background: C.bg }}>
-      {/* Vignette Overlay */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-0" 
+        style={{
+          background: 'radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.9) 120%)'
+        }}
+      />
+      <div className="max-w-md w-full h-screen flex flex-col justify-between px-6 py-8 relative z-10">
+        <div className="flex flex-col gap-6">
+          <StatusHeader />
+          <LocationCard />
+        </div>
+        <SosButton />
+        <BottomGrid />
+      </div>
+    </div>
+  );
+}
+
+function ServicePage({ title, icon, bg, color }) {
+  const navigate = useNavigate();
+  return (
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden" style={{ background: C.bg }}>
+      {/* Same Vignette for consistency */}
       <div 
         className="pointer-events-none absolute inset-0 z-0" 
         style={{
@@ -231,19 +255,88 @@ export default function App() {
         }}
       />
       
-      <div className="max-w-md w-full h-screen flex flex-col justify-between px-6 py-8 relative z-10">
-        {/* Top section */}
-        <div className="flex flex-col gap-6">
-          <StatusHeader />
-          <LocationCard />
+      <div className="w-full max-w-md flex flex-col h-screen px-6 py-8 z-10">
+        {/* Header */}
+        <div className="flex items-center gap-4 w-full" style={{ animation: 'slide-up-md 0.3s ease-out both' }}>
+          <button 
+            onClick={() => navigate('/')} 
+            className="h-12 w-12 rounded-full flex items-center justify-center md-ripple cursor-pointer border-none outline-none flex-shrink-0"
+            style={{ background: C.surfaceContainerHigh, color: C.onSurface }}
+            aria-label="Go Back"
+          >
+            <ArrowLeft className="h-6 w-6" strokeWidth={2} />
+          </button>
+          <h1 className="text-[22px] font-black tracking-wide" style={{ color: C.onSurface }}>
+            {title}
+          </h1>
+        </div>
+        
+        {/* Main Content - Pulsing Icon */}
+        <div className="flex-1 flex flex-col items-center justify-center gap-10 text-center" style={{ animation: 'slide-up-md 0.4s ease-out 0.1s both' }}>
+           <div className="relative">
+             <div className="absolute inset-0 rounded-full animate-ping opacity-60" style={{ background: bg }}></div>
+             <div className="h-40 w-40 rounded-full flex items-center justify-center relative md-elevation-2" style={{ background: bg, color: color }}>
+                {icon}
+             </div>
+           </div>
+           
+           <div>
+             <h2 className="text-[32px] font-bold" style={{ color: C.onSurface }}>Dispatching...</h2>
+             <p className="text-[16px] mt-3 flex items-center justify-center gap-2 font-medium" style={{ color: C.onSurfaceVariant }}>
+               <Clock className="h-5 w-5" /> ETA calculation in progress
+             </p>
+           </div>
         </div>
 
-        {/* Center */}
-        <SosButton />
-
-        {/* Bottom section */}
-        <BottomGrid />
+        {/* Cancel Button */}
+        <button 
+          onClick={() => navigate('/')} 
+          className="w-full h-16 rounded-full flex items-center justify-center gap-3 font-bold text-[18px] md-ripple cursor-pointer border-none outline-none"
+          style={{ 
+            background: C.surfaceContainerHigh, 
+            color: C.error,
+            animation: 'slide-up-md 0.5s ease-out 0.2s both'
+          }}
+        >
+          <XCircle className="h-6 w-6" /> Cancel Request
+        </button>
       </div>
     </div>
+  );
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━ Main Router ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/medic" element={
+          <ServicePage 
+            title="Medical Emergency" 
+            icon={<Hospital className="h-16 w-16 z-10" />} 
+            bg={C.greenContainer} 
+            color={C.onGreenContainer} 
+          />} 
+        />
+        <Route path="/police" element={
+          <ServicePage 
+            title="Police Assistance" 
+            icon={<ShieldAlert className="h-16 w-16 z-10" />} 
+            bg={C.blueContainer} 
+            color={C.onBlueContainer} 
+          />} 
+        />
+        <Route path="/tow" element={
+          <ServicePage 
+            title="Tow Service" 
+            icon={<CarFront className="h-16 w-16 z-10" />} 
+            bg={C.yellowContainer} 
+            color={C.onYellowContainer} 
+          />} 
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }

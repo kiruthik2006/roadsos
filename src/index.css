@@ -39,29 +39,39 @@
   box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* Background pulse animation */
-@keyframes radar-pulse {
-  0% { transform: scale(0.5); opacity: 0.6; }
-  100% { transform: scale(3.5); opacity: 0; }
+/* Background pulse animation (no fade) */
+@keyframes sos-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
 .radar-ring {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 60vmin;
-  height: 60vmin;
-  margin-left: -30vmin;
-  margin-top: -30vmin;
+  width: 70vmin;
+  height: 70vmin;
+  margin-left: -35vmin;
+  margin-top: -35vmin;
   border-radius: 50%;
-  background: rgba(255, 84, 73, 0.05); /* Solid fill, no gradient */
-  border: 2px solid rgba(255, 84, 73, 0.2); /* Crisp material edge */
-  animation: radar-pulse 6s infinite linear;
+  background: rgba(255, 84, 73, 0.08); /* Solid fill, constant opacity */
+  border: 4px solid rgba(255, 84, 73, 0.3); /* Crisp, thick material edge */
+  animation: sos-breathe 2.5s infinite ease-in-out;
   pointer-events: none;
   z-index: 0;
 }
-.radar-ring:nth-child(2) { animation-delay: 2s; }
-.radar-ring:nth-child(3) { animation-delay: 4s; }
+.radar-ring:nth-child(2) {
+  width: 85vmin;
+  height: 85vmin;
+  margin-left: -42.5vmin;
+  margin-top: -42.5vmin;
+  background: rgba(255, 84, 73, 0.04);
+  border: 2px solid rgba(255, 84, 73, 0.2);
+  animation-delay: -1.25s; /* Opposite phase */
+}
+.radar-ring:nth-child(3) {
+  display: none; /* Only need two for a solid effect */
+}
 
 /* Interactive ripple effect approximation */
 .md-ripple {

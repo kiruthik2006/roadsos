@@ -4,57 +4,68 @@ import {
   MapPin,
   Copy,
   Check,
-  ChevronRight,
-  ArrowRight,
-  Phone,
-  Shield,
-  Navigation,
+  TriangleAlert,
+  Hospital,
+  ShieldAlert,
+  CarFront,
 } from 'lucide-react';
 
-/* ━━━ palette tokens (used as inline values for cleanliness) ━━━━━━ */
+/* ━━━ MD3 Dark Theme Tokens ━━━━━━ */
 const C = {
-  bg:        '#1c1917',
-  card:      '#262220',
-  cardHover: '#302b28',
-  text:      '#e7e0d8',
-  textSec:   '#a8a090',
-  textMuted: '#78716c',
-  border:    '#352f2a',
-  red:       '#dc5044',
-  redLight:  '#dc50440f',
-  redRing:   '#dc504425',
-  blue:      '#5b9bd5',
-  blueLight: '#5b9bd50d',
-  blueBorder:'#5b9bd520',
-  green:     '#5dac84',
-  greenLight:'#5dac840d',
-  greenBorder:'#5dac8420',
+  bg: '#1e1b1a',
+  surfaceContainer: '#2b2927',
+  surfaceContainerHigh: '#363431',
+  onSurface: '#eae0d4',
+  onSurfaceVariant: '#d0c4b5',
+  primary: '#ffb4ab',
+  onPrimary: '#690005',
+  primaryContainer: '#93000a',
+  onPrimaryContainer: '#ffdad6',
+  error: '#ffb4ab',
+  blueContainer: '#004a77',
+  onBlueContainer: '#c1e8ff',
+  greenContainer: '#005234',
+  onGreenContainer: '#8ef7c0',
+  sosRed: '#ff5449',
 };
 
-/* ━━━━━━━━━━━━━━━━━━━━ Status Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━━━━━━━━━━━━━━━━━━ Logo & Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+function AppLogo() {
+  return (
+    <svg viewBox="0 0 32 32" className="h-8 w-8" fill="none">
+      {/* Shield backdrop */}
+      <path
+        d="M16 2 L28 6 V14 C28 22 22 28 16 30 C10 28 4 22 4 14 V6 Z"
+        fill={C.primaryContainer}
+      />
+      {/* Road / Path inside shield */}
+      <path
+        d="M12 30 L16 12 L20 30"
+        stroke={C.onPrimaryContainer}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="16" cy="12" r="3" fill={C.primary} />
+    </svg>
+  );
+}
 
 function StatusHeader() {
   return (
     <div
-      className="flex items-center justify-between"
-      style={{ animation: 'fade-up 0.5s ease-out both' }}
+      className="flex items-center justify-between z-10"
+      style={{ animation: 'slide-up-md 0.4s ease-out both' }}
     >
-      <div>
-        <h1 className="text-[20px] font-bold" style={{ color: C.text }}>
-          Road<span style={{ color: C.red }}>SoS</span>
-        </h1>
-      </div>
+      <AppLogo />
+      
+      {/* Visual offline indicator */}
       <div
-        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1"
-        style={{ background: C.redLight, border: `1px solid ${C.red}20` }}
+        className="flex items-center justify-center h-10 w-10 rounded-full md-elevation-1"
+        style={{ background: C.surfaceContainerHigh }}
       >
-        <WifiOff className="h-3 w-3" style={{ color: C.red }} strokeWidth={2.5} />
-        <span
-          className="text-[10px] font-semibold tracking-[0.12em] uppercase"
-          style={{ color: C.red }}
-        >
-          Offline
-        </span>
+        <WifiOff className="h-5 w-5" style={{ color: C.error }} strokeWidth={2} />
       </div>
     </div>
   );
@@ -66,63 +77,51 @@ function LocationCard() {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
-    navigator.clipboard?.writeText('NH-544, Near Avinashi. 11.1819°N, 77.2621°E').catch(() => {});
+    navigator.clipboard?.writeText('11.1819°N, 77.2621°E').catch(() => {});
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, []);
 
   return (
     <div
-      className="w-full rounded-2xl p-4"
+      className="w-full rounded-[28px] p-5 flex items-center gap-4 z-10 md-elevation-1"
       style={{
-        background: C.card,
-        border: `1px solid ${C.border}`,
-        boxShadow: '0 1px 3px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.15)',
-        animation: 'fade-up 0.5s ease-out 0.1s both',
+        background: C.surfaceContainer,
+        animation: 'slide-up-md 0.4s ease-out 0.1s both',
       }}
     >
-      {/* Top row: icon + location */}
-      <div className="flex items-start gap-3">
-        <div
-          className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-xl"
-          style={{ background: C.redLight }}
-        >
-          <MapPin className="h-5 w-5" style={{ color: C.red }} strokeWidth={1.8} />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[14px] font-semibold leading-snug" style={{ color: C.text }}>
-            NH-544, Near Avinashi.
-          </p>
-          <p className="text-[12px] mt-0.5 font-medium" style={{ color: C.textSec }}>
-            11.1819°N, 77.2621°E
-          </p>
-        </div>
+      {/* Large visual pin */}
+      <div
+        className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full"
+        style={{ background: C.surfaceContainerHigh }}
+      >
+        <MapPin className="h-7 w-7" style={{ color: C.primary }} strokeWidth={1.8} />
       </div>
 
-      {/* Bottom row: copy button spanning full width */}
+      {/* Coordinates only - highly visual */}
+      <div className="flex-1 min-w-0">
+        <p className="text-[20px] font-bold tracking-wide" style={{ color: C.onSurface }}>
+          11.18, 77.26
+        </p>
+        <p className="text-[14px] font-medium mt-1 truncate" style={{ color: C.onSurfaceVariant }}>
+          NH-544, Near Avinashi
+        </p>
+      </div>
+
+      {/* Visual icon-only copy button */}
       <button
         onClick={handleCopy}
-        className="mt-3 w-full flex items-center justify-center gap-2 rounded-xl py-2.5 cursor-pointer transition-all duration-150 active:scale-[0.98]"
+        className="flex items-center justify-center h-14 w-14 rounded-full cursor-pointer md-ripple flex-shrink-0"
         style={{
-          background: copied ? C.greenLight : C.cardHover,
-          border: `1px solid ${copied ? C.greenBorder : C.border}`,
+          background: copied ? C.greenContainer : C.surfaceContainerHigh,
+          color: copied ? C.onGreenContainer : C.onSurface,
         }}
         aria-label="Copy location"
       >
         {copied ? (
-          <span style={{ animation: 'pop-in 0.3s ease-out' }} className="flex items-center gap-2">
-            <Check className="h-4 w-4" style={{ color: C.green }} strokeWidth={2.5} />
-            <span className="text-[12px] font-semibold" style={{ color: C.green }}>
-              Copied to clipboard
-            </span>
-          </span>
+          <Check className="h-6 w-6" strokeWidth={2.5} />
         ) : (
-          <>
-            <Copy className="h-3.5 w-3.5" style={{ color: C.textSec }} strokeWidth={2} />
-            <span className="text-[12px] font-semibold" style={{ color: C.textSec }}>
-              Copy Location
-            </span>
-          </>
+          <Copy className="h-6 w-6" strokeWidth={2} />
         )}
       </button>
     </div>
@@ -133,187 +132,78 @@ function LocationCard() {
 
 function SosButton() {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center gap-4 py-2">
-      <div className="relative flex items-center justify-center">
-        {/* Breathing ring */}
-        <div
-          className="absolute h-60 w-60 rounded-full"
-          style={{
-            border: `2px solid ${C.redRing}`,
-            animation: 'sos-breathe 4s ease-in-out infinite',
-          }}
-        />
+    <div className="flex-1 flex items-center justify-center relative">
+      {/* Background radar animation */}
+      <div className="radar-ring" />
+      <div className="radar-ring" />
+      <div className="radar-ring" />
 
-        {/* Main button */}
-        <button
-          className="relative h-48 w-48 rounded-full cursor-pointer
-            flex flex-col items-center justify-center gap-1
-            transition-transform duration-200 active:scale-95
-            select-none border-none outline-none"
-          style={{
-            background: `linear-gradient(145deg, #ef4444, ${C.red})`,
-            boxShadow: `0 8px 32px ${C.red}40, 0 2px 8px rgba(0,0,0,0.3)`,
-          }}
-          aria-label="Swipe for SOS"
-        >
-          <span
-            className="text-white/80 text-[11px] font-semibold tracking-[0.2em] uppercase"
-          >
-            Swipe For
-          </span>
-          <span
-            className="text-white text-[56px] font-extrabold leading-none"
-            style={{ letterSpacing: '-0.02em' }}
-          >
-            SOS
-          </span>
-
-          {/* Animated chevron hint */}
-          <div
-            className="flex items-center -space-x-1.5 mt-1"
-            style={{ animation: 'nudge-right 2s ease-in-out infinite' }}
-          >
-            <ChevronRight className="h-5 w-5 text-white/60" strokeWidth={2.5} />
-            <ChevronRight className="h-5 w-5 text-white/35" strokeWidth={2.5} />
-            <ChevronRight className="h-5 w-5 text-white/15" strokeWidth={2.5} />
-          </div>
-        </button>
-      </div>
-
-      <p className="text-[11px] font-medium tracking-wide" style={{ color: C.textMuted }}>
-        Hold &amp; swipe to send emergency alert
-      </p>
-    </div>
-  );
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━ Divider ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-function HelpDivider() {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="flex-1 h-px" style={{ background: C.border }} />
-      <span
-        className="text-[10px] font-semibold tracking-[0.15em] uppercase whitespace-nowrap"
-        style={{ color: C.textMuted }}
+      {/* Massive visual SOS button */}
+      <button
+        className="relative h-64 w-64 rounded-full cursor-pointer md-ripple
+          flex flex-col items-center justify-center z-10
+          transition-transform duration-200 active:scale-95 border-none outline-none md-elevation-2"
+        style={{
+          background: C.sosRed,
+          color: '#ffffff',
+        }}
+        aria-label="Trigger SOS"
       >
-        Bystander? Help nearby
-      </span>
-      <div className="flex-1 h-px" style={{ background: C.border }} />
+        <TriangleAlert className="h-16 w-16 mb-2" strokeWidth={2.5} />
+        <span
+          className="text-[48px] font-black leading-none"
+          style={{ letterSpacing: '0.05em' }}
+        >
+          SOS
+        </span>
+      </button>
     </div>
   );
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━ Action Cards ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-function ActionCard({ icon, label, subtitle, bgLight, borderColor, accentColor, delay }) {
+function ActionButton({ icon, label, bg, color, delay }) {
   return (
     <button
-      className="flex flex-col items-center gap-2.5 rounded-2xl p-4 cursor-pointer
-        transition-all duration-200 active:scale-[0.97] border-none outline-none text-center"
+      className="flex flex-col items-center justify-center gap-3 rounded-[24px] p-4 cursor-pointer
+        md-ripple md-elevation-1 border-none outline-none h-28"
       style={{
-        background: bgLight,
-        border: `1px solid ${borderColor}`,
-        boxShadow: '0 1px 4px rgba(0,0,0,0.15)',
-        animation: `slide-up 0.4s ease-out ${delay} both`,
+        background: bg,
+        color: color,
+        animation: `slide-up-md 0.4s ease-out ${delay} both`,
       }}
+      aria-label={`Call ${label}`}
     >
-      {/* Icon */}
-      <div
-        className="flex items-center justify-center h-11 w-11 rounded-full"
-        style={{ background: C.cardHover, boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }}
-      >
-        {icon}
-      </div>
-
-      {/* Text */}
-      <div>
-        <p className="text-[13px] font-bold" style={{ color: C.text }}>{label}</p>
-        <p className="text-[10px] font-medium mt-0.5" style={{ color: C.textSec }}>{subtitle}</p>
-      </div>
-
-      {/* Arrow */}
-      <div
-        className="flex items-center justify-center h-7 w-7 rounded-full"
-        style={{ background: accentColor, boxShadow: `0 2px 8px ${accentColor}40` }}
-      >
-        <ArrowRight className="h-3.5 w-3.5 text-white" strokeWidth={2.5} />
-      </div>
+      {icon}
+      <span className="text-[14px] font-bold tracking-wide">{label}</span>
     </button>
-  );
-}
-
-/* ─── Custom SVG Icons ─────────────────────────────────────────────── */
-
-function AmbulanceIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="1" y="8" width="15" height="9" rx="1.5" stroke={C.blue} strokeWidth="1.5" />
-      <path d="M16 11h4l3 4v2h-7V11z" stroke={C.blue} strokeWidth="1.5" />
-      <circle cx="5.5" cy="18.5" r="1.5" fill={C.blue} />
-      <circle cx="18.5" cy="18.5" r="1.5" fill={C.blue} />
-      <line x1="8.5" y1="10.5" x2="8.5" y2="14.5" stroke={C.red} strokeWidth="2" />
-      <line x1="6.5" y1="12.5" x2="10.5" y2="12.5" stroke={C.red} strokeWidth="2" />
-    </svg>
-  );
-}
-
-function PoliceIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 14h18v4H3z" stroke={C.blue} strokeWidth="1.5" />
-      <path d="M5 14l2-5h10l2 5" stroke={C.blue} strokeWidth="1.5" />
-      <circle cx="6.5" cy="18.5" r="1.5" fill={C.blue} />
-      <circle cx="17.5" cy="18.5" r="1.5" fill={C.blue} />
-      <rect x="9" y="6" width="6" height="3" rx="1" fill={C.blue} />
-      <line x1="12" y1="4.5" x2="12" y2="6" stroke={C.blue} strokeWidth="1.5" />
-    </svg>
-  );
-}
-
-function TowIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 11h4l3 4v3h-7V11z" stroke={C.green} strokeWidth="1.5" />
-      <rect x="1" y="14" width="13" height="4" rx="1.5" stroke={C.green} strokeWidth="1.5" />
-      <path d="M5 14V8l4-3" stroke={C.green} strokeWidth="1.8" />
-      <path d="M9 5l-2 1" stroke={C.green} strokeWidth="1.5" />
-      <path d="M5 8l-1.5 2" stroke={C.green} strokeWidth="1.8" />
-      <circle cx="5" cy="18.5" r="1.5" fill={C.green} />
-      <circle cx="18.5" cy="18.5" r="1.5" fill={C.green} />
-    </svg>
   );
 }
 
 function BottomGrid() {
   return (
-    <div className="grid grid-cols-3 gap-2.5">
-      <ActionCard
-        icon={<AmbulanceIcon />}
-        label="Hospital"
-        subtitle="Nearest"
-        bgLight={C.blueLight}
-        borderColor={C.blueBorder}
-        accentColor={C.blue}
-        delay="0.05s"
+    <div className="grid grid-cols-3 gap-4 z-10 w-full">
+      <ActionButton
+        icon={<Hospital className="h-8 w-8" strokeWidth={2} />}
+        label="Medic"
+        bg={C.blueContainer}
+        color={C.onBlueContainer}
+        delay="0.2s"
       />
-      <ActionCard
-        icon={<PoliceIcon />}
+      <ActionButton
+        icon={<ShieldAlert className="h-8 w-8" strokeWidth={2} />}
         label="Police"
-        subtitle="Nearest"
-        bgLight={C.blueLight}
-        borderColor={C.blueBorder}
-        accentColor={C.blue}
-        delay="0.1s"
+        bg={C.blueContainer}
+        color={C.onBlueContainer}
+        delay="0.3s"
       />
-      <ActionCard
-        icon={<TowIcon />}
-        label="Towing"
-        subtitle="Nearest"
-        bgLight={C.greenLight}
-        borderColor={C.greenBorder}
-        accentColor={C.green}
-        delay="0.15s"
+      <ActionButton
+        icon={<CarFront className="h-8 w-8" strokeWidth={2} />}
+        label="Tow"
+        bg={C.greenContainer}
+        color={C.onGreenContainer}
+        delay="0.4s"
       />
     </div>
   );
@@ -323,10 +213,10 @@ function BottomGrid() {
 
 export default function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: C.bg }}>
-      <div className="max-w-md w-full h-screen flex flex-col justify-between px-5 py-6 gap-2">
+    <div className="min-h-screen relative flex items-center justify-center" style={{ background: C.bg }}>
+      <div className="max-w-md w-full h-screen flex flex-col justify-between px-6 py-8">
         {/* Top section */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           <StatusHeader />
           <LocationCard />
         </div>
@@ -335,10 +225,7 @@ export default function App() {
         <SosButton />
 
         {/* Bottom section */}
-        <div className="flex flex-col gap-3.5 pb-2">
-          <HelpDivider />
-          <BottomGrid />
-        </div>
+        <BottomGrid />
       </div>
     </div>
   );

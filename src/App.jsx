@@ -66,16 +66,14 @@ function StatusHeader() {
         </h1>
       </div>
       
-      {/* Right: Offline Indicator */}
-      <div
-        className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full md-elevation-1"
+      {/* Right: Offline Indicator (Icon Only) */}
+      <button
+        className="flex items-center justify-center h-12 w-12 rounded-full md-elevation-1 md-ripple border-none outline-none flex-shrink-0 cursor-pointer"
         style={{ background: C.surfaceContainerHigh }}
+        aria-label="Offline Mode"
       >
-        <WifiOff className="h-4 w-4" style={{ color: C.error }} strokeWidth={2} />
-        <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: C.error }}>
-          Offline
-        </span>
-      </div>
+        <WifiOff className="h-5 w-5" style={{ color: C.error }} strokeWidth={2} />
+      </button>
     </div>
   );
 }

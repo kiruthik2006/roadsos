@@ -55,24 +55,25 @@ function AppLogo() {
 function StatusHeader() {
   return (
     <div
-      className="flex flex-col items-center justify-center gap-3 z-10 w-full"
+      className="flex items-center justify-between z-10 w-full"
       style={{ animation: 'slide-up-md 0.4s ease-out both' }}
     >
-      <div className="flex items-center gap-3">
+      {/* Left: Logo & Title */}
+      <div className="flex items-center gap-2.5">
         <AppLogo />
-        <h1 className="text-[32px] font-black tracking-wide" style={{ color: C.onSurface }}>
+        <h1 className="text-[26px] font-black tracking-wide" style={{ color: C.onSurface }}>
           Road<span style={{ color: C.primary }}>SoS</span>
         </h1>
       </div>
       
-      {/* Visual offline indicator badge */}
+      {/* Right: Offline Indicator */}
       <div
-        className="flex items-center justify-center gap-2 px-5 py-1.5 rounded-full md-elevation-1"
+        className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full md-elevation-1"
         style={{ background: C.surfaceContainerHigh }}
       >
         <WifiOff className="h-4 w-4" style={{ color: C.error }} strokeWidth={2} />
-        <span className="text-[12px] font-bold tracking-[0.2em] uppercase" style={{ color: C.error }}>
-          Offline Mode
+        <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: C.error }}>
+          Offline
         </span>
       </div>
     </div>

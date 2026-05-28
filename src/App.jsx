@@ -220,8 +220,16 @@ function BottomGrid() {
 
 export default function App() {
   return (
-    <div className="min-h-screen relative flex items-center justify-center" style={{ background: C.bg }}>
-      <div className="max-w-md w-full h-screen flex flex-col justify-between px-6 py-8">
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden" style={{ background: C.bg }}>
+      {/* Vignette Overlay */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-0" 
+        style={{
+          background: 'radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.4) 100%)'
+        }}
+      />
+      
+      <div className="max-w-md w-full h-screen flex flex-col justify-between px-6 py-8 relative z-10">
         {/* Top section */}
         <div className="flex flex-col gap-6">
           <StatusHeader />

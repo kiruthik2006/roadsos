@@ -26,6 +26,8 @@ const C = {
   onBlueContainer: '#c1e8ff',
   greenContainer: '#005234',
   onGreenContainer: '#8ef7c0',
+  yellowContainer: '#4b4319',
+  onYellowContainer: '#e8d468',
   sosRed: '#ff5449',
 };
 
@@ -90,8 +92,9 @@ function LocationCard() {
   }, []);
 
   return (
-    <div
-      className="w-full rounded-[28px] p-5 flex items-center gap-4 z-10 md-elevation-1"
+    <button
+      onClick={handleCopy}
+      className="w-full rounded-[28px] p-5 flex items-center gap-4 z-10 md-elevation-1 md-ripple border-none outline-none cursor-pointer text-left"
       style={{
         background: C.surfaceContainer,
         animation: 'slide-up-md 0.4s ease-out 0.1s both',
@@ -115,23 +118,22 @@ function LocationCard() {
         </p>
       </div>
 
-      {/* Visual icon-only copy button */}
-      <button
-        onClick={handleCopy}
-        className="flex items-center justify-center h-14 w-14 rounded-full cursor-pointer md-ripple flex-shrink-0"
+      {/* Visual icon-only copy feedback */}
+      <div
+        className="flex items-center justify-center h-14 w-14 rounded-full flex-shrink-0 transition-colors duration-200"
         style={{
           background: copied ? C.greenContainer : C.surfaceContainerHigh,
           color: copied ? C.onGreenContainer : C.onSurface,
         }}
-        aria-label="Copy location"
+        aria-hidden="true"
       >
         {copied ? (
           <Check className="h-6 w-6" strokeWidth={2.5} />
         ) : (
           <Copy className="h-6 w-6" strokeWidth={2} />
         )}
-      </button>
-    </div>
+      </div>
+    </button>
   );
 }
 
@@ -194,8 +196,8 @@ function BottomGrid() {
       <ActionButton
         icon={<Hospital className="h-8 w-8" strokeWidth={2} />}
         label="Medic"
-        bg={C.blueContainer}
-        color={C.onBlueContainer}
+        bg={C.greenContainer}
+        color={C.onGreenContainer}
         delay="0.2s"
       />
       <ActionButton
@@ -208,8 +210,8 @@ function BottomGrid() {
       <ActionButton
         icon={<CarFront className="h-8 w-8" strokeWidth={2} />}
         label="Tow"
-        bg={C.greenContainer}
-        color={C.onGreenContainer}
+        bg={C.yellowContainer}
+        color={C.onYellowContainer}
         delay="0.4s"
       />
     </div>

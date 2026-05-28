@@ -13,21 +13,22 @@ import {
 
 /* ━━━ palette tokens (used as inline values for cleanliness) ━━━━━━ */
 const C = {
-  bg:        '#f0f0f5',
-  card:      '#ffffff',
-  text:      '#1a1a2e',
-  textSec:   '#6b7280',
-  textMuted: '#9ca3af',
-  border:    '#e5e7eb',
+  bg:        '#18181b',
+  card:      '#232329',
+  cardHover: '#2a2a31',
+  text:      '#e4e4e7',
+  textSec:   '#a1a1aa',
+  textMuted: '#71717a',
+  border:    '#2e2e35',
   red:       '#e63946',
-  redLight:  '#fef2f2',
-  redRing:   '#e6394630',
-  blue:      '#2563eb',
-  blueLight: '#eff6ff',
-  blueBorder:'#dbeafe',
-  green:     '#059669',
-  greenLight:'#ecfdf5',
-  greenBorder:'#d1fae5',
+  redLight:  '#e639460d',
+  redRing:   '#e6394625',
+  blue:      '#3b82f6',
+  blueLight: '#3b82f60d',
+  blueBorder:'#3b82f620',
+  green:     '#10b981',
+  greenLight:'#10b9810d',
+  greenBorder:'#10b98120',
 };
 
 /* ━━━━━━━━━━━━━━━━━━━━ Status Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -76,7 +77,7 @@ function LocationCard() {
       style={{
         background: C.card,
         border: `1px solid ${C.border}`,
-        boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03)',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.15)',
         animation: 'fade-up 0.5s ease-out 0.1s both',
       }}
     >
@@ -103,7 +104,7 @@ function LocationCard() {
         onClick={handleCopy}
         className="mt-3 w-full flex items-center justify-center gap-2 rounded-xl py-2.5 cursor-pointer transition-all duration-150 active:scale-[0.98]"
         style={{
-          background: copied ? '#ecfdf5' : '#f9fafb',
+          background: copied ? C.greenLight : C.cardHover,
           border: `1px solid ${copied ? C.greenBorder : C.border}`,
         }}
         aria-label="Copy location"
@@ -151,7 +152,7 @@ function SosButton() {
             select-none border-none outline-none"
           style={{
             background: `linear-gradient(145deg, #ef4444, ${C.red})`,
-            boxShadow: `0 8px 32px ${C.red}35, 0 2px 8px rgba(0,0,0,0.08)`,
+            boxShadow: `0 8px 32px ${C.red}40, 0 2px 8px rgba(0,0,0,0.3)`,
           }}
           aria-label="Swipe for SOS"
         >
@@ -213,14 +214,14 @@ function ActionCard({ icon, label, subtitle, bgLight, borderColor, accentColor, 
       style={{
         background: bgLight,
         border: `1px solid ${borderColor}`,
-        boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.15)',
         animation: `slide-up 0.4s ease-out ${delay} both`,
       }}
     >
       {/* Icon */}
       <div
         className="flex items-center justify-center h-11 w-11 rounded-full"
-        style={{ background: '#ffffff', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+        style={{ background: C.cardHover, boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }}
       >
         {icon}
       </div>
